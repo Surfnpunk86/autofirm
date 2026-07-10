@@ -11,8 +11,8 @@ window.AUTOFIRM_CONFIG = {
      - SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp1Z2Z4Y3B6emhueHRhb2d1a2NtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2NjM4NjcsImV4cCI6MjA5OTIzOTg2N30.jC9k91mKGGKGdhlWC6VaRxBFBvfcSkPNFUaO3-UgRhQ"  (esta llave es PÚBLICA y segura
         de exponer: la seguridad la dan las políticas RLS de la base).
      ⚠️ NUNCA pongas aquí la llave "service_role".                     */
-  SUPABASE_URL:      "https://TU-PROYECTO.supabase.co",
-  SUPABASE_ANON_KEY: "TU-LLAVE-ANON-PUBLICA",
+  SUPABASE_URL:      "https://zugfxcpzzhnxtaogukcm.supabase.com",
+  SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp1Z2Z4Y3B6emhueHRhb2d1a2NtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2NjM4NjcsImV4cCI6MjA5OTIzOTg2N30.jC9k91mKGGKGdhlWC6VaRxBFBvfcSkPNFUaO3-UgRhQ",
 
   /* 2) DATOS DEL NEGOCIO ------------------------------------------ */
   negocio:   "Autofirm",
