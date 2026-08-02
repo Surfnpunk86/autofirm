@@ -20,7 +20,7 @@ window.AUTOFIRM_CONFIG = {
   telefono:  "+57 302 278 9840",
   ciudad:    "Barranquilla, Colombia",
   direccion: "Barranquilla, Atlántico",
-  horario:   "Lun a Sáb · 8:00 a.m. – 6:00 p.m.",
+  horario:   "Lun a Vie 8:30 a.m.–5:00 p.m. · Sáb 9:00 a.m.–3:00 p.m.",
   instagram: "https://www.instagram.com/autofirm_baq",                     // URL de Instagram (opcional)
   facebook:  "https://www.facebook.com/share/1RjbtfMudd/?mibextid=wwXIfr",                     // URL de Facebook (opcional)
 };
