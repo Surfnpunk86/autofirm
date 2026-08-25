@@ -1,508 +1,409 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="robots" content="noindex,nofollow" />
-<title>Autofirm · Panel de administración</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2310151F'/%3E%3Cpath d='M20 44 L32 20 L44 44 M24 36 H40' stroke='%23DD2B21' stroke-width='5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Saira:wght@600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de administrador · COLUNCER</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#10151F; --ink-2:#1A2130; --ink-3:#262F41;
-  --paper:#F5F6F8; --surface:#FFFFFF; --line:#E3E7EC; --line-dk:rgba(255,255,255,.10);
-  --text:#10151F; --muted:#5A6577;
-  --red:#DD2B21; --red-dp:#B4241B; --red-soft:#FCE7E5;
-  --wa:#25D366; --wa-dp:#1EB955; --ok:#1E9E6A; --warn:#C6892A;
-  --radius:14px; --shadow:0 6px 20px rgba(16,21,31,.10);
+  --V:#6B46E3;--VD:#4F2FC0;
+  --L:#C6ED2E;
+  --K:#15171F;--G:#54545A;--M:#6E707A;--B:#F4F5F1;--W:#FFFFFF;--LN:#E7E8E2;
+  --ok:#1F8A4C;--warn:#B5451C;
+  --r:14px;
 }
-*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
-body{ font-family:'Manrope',system-ui,sans-serif; background:var(--paper); color:var(--text); line-height:1.5; -webkit-font-smoothing:antialiased; }
-img{ display:block; max-width:100%; }
-button{ font:inherit; cursor:pointer; border:none; background:none; color:inherit; }
-input,select,textarea{ font:inherit; color:inherit; width:100%; }
-a{ color:inherit; }
-:focus-visible{ outline:3px solid var(--red); outline-offset:2px; border-radius:6px; }
-.mono{ font-family:'JetBrains Mono',monospace; }
-.hidden{ display:none !important; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--K);background:var(--B);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Archivo',sans-serif;font-weight:900;letter-spacing:-.02em}
+button,input,select,textarea{font-family:inherit}
+a{color:var(--V)}
 
-/* ---------- Login ---------- */
-.login-wrap{ min-height:100dvh; display:grid; place-items:center; padding:24px;
-  background:radial-gradient(70% 60% at 50% 0%, rgba(221,43,33,.12), transparent 60%), var(--ink); }
-.login-card{ width:100%; max-width:400px; background:var(--surface); border-radius:20px; padding:34px 30px; box-shadow:0 30px 60px rgba(0,0,0,.35); }
-.login-card img{ height:44px; margin:0 auto 20px; }
-.login-card h1{ font-family:'Saira',sans-serif; font-weight:700; font-size:1.5rem; text-align:center; }
-.login-card .sub{ text-align:center; color:var(--muted); font-size:14px; margin-bottom:24px; }
-.lg-field{ margin-bottom:14px; }
-.lg-field label{ font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:6px; }
-.lg-field input{ background:#fafbfc; border:1px solid var(--line); border-radius:11px; padding:13px 14px; font-size:15px; }
-.lg-field input:focus{ outline:none; border-color:var(--red); box-shadow:0 0 0 3px rgba(221,43,33,.14); }
-.btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; font-weight:700; font-size:15px; padding:13px 20px; border-radius:12px; transition:transform .15s, background .15s, box-shadow .15s; }
-.btn-red{ background:var(--red); color:#fff; width:100%; }
-.btn-red:hover{ background:#E8382E; transform:translateY(-1px); }
-.login-err{ background:var(--red-soft); color:var(--red-dp); font-size:13.5px; font-weight:600; padding:11px 13px; border-radius:10px; margin-bottom:14px; }
-.login-note{ text-align:center; font-size:12.5px; color:var(--muted); margin-top:18px; }
+/* ---- LOGIN GATE ---- */
+#gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.gatebox{background:#fff;border:1px solid var(--LN);border-radius:20px;padding:38px 34px;max-width:380px;width:100%}
+.gatebox h1{font-size:1.3rem;margin-bottom:6px}
+.gatebox p{color:var(--M);font-size:.88rem;margin-bottom:20px;line-height:1.5}
+.gatebox input{width:100%;padding:12px 14px;border:1px solid var(--LN);border-radius:10px;font-size:.95rem;margin-bottom:12px}
+.gatebox button{width:100%;padding:13px;border:0;border-radius:10px;background:var(--K);color:#fff;font-weight:800;font-family:'Archivo';font-size:.9rem}
+.gatebox button:hover{background:var(--VD)}
+.gateerr{color:var(--warn);font-size:.82rem;margin-top:10px;display:none}
+.gatenote{background:var(--B);border:1px solid var(--LN);border-radius:10px;padding:12px 14px;font-size:.78rem;color:var(--M);line-height:1.5;margin-top:18px}
 
-/* ---------- App ---------- */
-.topbar{ position:sticky; top:0; z-index:30; background:var(--ink); color:#fff; }
-.topbar-in{ max-width:1180px; margin:auto; padding:0 20px; height:64px; display:flex; align-items:center; gap:16px; }
-.topbar img{ height:34px; }
-.topbar .tt{ font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.55); border-left:1px solid var(--line-dk); padding-left:16px; }
-.topbar .right{ margin-left:auto; display:flex; align-items:center; gap:14px; }
-.topbar .who{ font-size:13px; color:rgba(255,255,255,.7); }
-.topbar .out{ font-size:13.5px; font-weight:600; color:#fff; border:1px solid var(--line-dk); padding:8px 13px; border-radius:9px; }
-.topbar .out:hover{ background:rgba(255,255,255,.08); }
-.link-cat{ font-size:13.5px; font-weight:600; color:var(--red); }
+/* ---- APP ---- */
+#app{display:none}
+header{position:sticky;top:0;z-index:30;background:var(--K);color:#fff;padding:16px 0;box-shadow:0 2px 20px rgba(0,0,0,.12)}
+.htop{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.htop h1{font-size:1.15rem;color:#fff;flex:1}
+.htop h1 span{color:var(--L)}
+.hbtn{font-size:.8rem;font-weight:700;padding:9px 15px;border-radius:100px;border:1px solid rgba(255,255,255,.3);color:#fff;background:transparent}
+.hbtn:hover{border-color:rgba(255,255,255,.7)}
+.hbtn.primary{background:var(--L);color:var(--K);border-color:var(--L)}
 
-.wrap{ max-width:1180px; margin:auto; padding:26px 20px 80px; }
-.toolbar{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:20px; }
-.toolbar h2{ font-family:'Saira',sans-serif; font-weight:700; font-size:1.55rem; }
-.toolbar .count{ font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--muted); background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px; }
-.toolbar .search{ position:relative; margin-left:auto; }
-.toolbar .search input{ background:#fff; border:1px solid var(--line); border-radius:10px; padding:10px 14px 10px 36px; width:240px; font-size:14px; }
-.toolbar .search svg{ position:absolute; left:12px; top:50%; transform:translateY(-50%); width:16px; height:16px; color:var(--muted); }
-.btn-add{ background:var(--red); color:#fff; font-weight:700; font-size:14.5px; padding:11px 17px; border-radius:11px; display:inline-flex; align-items:center; gap:8px; }
-.btn-add:hover{ background:#E8382E; }
-.btn-add svg{ width:17px; height:17px; }
+.wrap{max-width:1200px;margin:0 auto;padding:26px 24px 90px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:20px}
+.toolbar .spacer{flex:1}
+.status{font-size:.82rem;color:var(--M)}
+.status.saved{color:var(--ok)}
 
-/* Lista de vehículos */
-.list{ display:flex; flex-direction:column; gap:10px; }
-.row{ background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:12px 14px; display:grid; grid-template-columns:64px 1fr auto; gap:14px; align-items:center; box-shadow:var(--shadow); }
-.row .thumb{ width:64px; height:52px; border-radius:9px; object-fit:cover; background:var(--ink-2); }
-.row .thumb.none{ display:grid; place-items:center; color:rgba(255,255,255,.4); font-size:9px; font-family:'JetBrains Mono',monospace; text-align:center; }
-.row .info h3{ font-family:'Saira',sans-serif; font-weight:700; font-size:1.05rem; line-height:1.15; }
-.row .info .meta{ font-size:12.5px; color:var(--muted); margin-top:2px; }
-.row .info .price{ font-weight:700; font-size:14px; margin-top:3px; }
-.row .tags{ display:flex; gap:6px; margin-top:6px; flex-wrap:wrap; }
-.tag{ font-family:'JetBrains Mono',monospace; font-size:9.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; padding:3px 8px; border-radius:6px; }
-.tag.disp{ background:#E7F6EF; color:var(--ok); } .tag.res{ background:#FDECEC; color:#B4362E; } .tag.ven{ background:#EEF0F3; color:var(--muted); }
-.tag.star{ background:var(--red-soft); color:var(--red-dp); }
-.row .acts{ display:flex; gap:8px; }
-.row .acts button{ border:1px solid var(--line); background:#fff; border-radius:9px; padding:9px 13px; font-weight:600; font-size:13.5px; }
-.row .acts .edit:hover{ border-color:var(--red); background:var(--red-soft); color:var(--red-dp); }
-.row .acts .del:hover{ border-color:#E7A29C; background:#FDECEC; color:#B4362E; }
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.pcard{background:#fff;border:1px solid var(--LN);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
+.pcard .thumb{height:150px;background-size:cover;background-position:center;background-color:#eee;position:relative}
+.pcard .thumb .noimg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--M);font-size:.8rem}
+.pcard .pinfo{padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.pcard h4{font-size:.92rem;font-family:'Inter';font-weight:700}
+.pcard .meta{font-size:.76rem;color:var(--M)}
+.pcard .pricerow{display:flex;align-items:baseline;gap:8px;margin-top:4px}
+.pcard .price{font-family:'Archivo';font-weight:900;font-size:1.05rem}
+.pcard .old{font-size:.78rem;color:var(--M);text-decoration:line-through}
+.pcard .actions{margin-top:10px;display:flex;gap:8px}
+.pcard .actions button{flex:1;padding:9px;border-radius:8px;border:1px solid var(--LN);background:#fff;font-size:.8rem;font-weight:700}
+.pcard .actions button.edit:hover{border-color:var(--V);color:var(--V)}
+.pcard .actions button.del:hover{border-color:var(--warn);color:var(--warn)}
+.addcard{border:2px dashed var(--LN);border-radius:var(--r);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;min-height:220px;color:var(--M);background:transparent}
+.addcard:hover{border-color:var(--V);color:var(--V)}
+.addcard .plus{font-size:2rem;font-family:'Archivo';font-weight:800}
 
-.empty-admin{ text-align:center; padding:60px 20px; color:var(--muted); }
-.empty-admin h3{ font-family:'Saira',sans-serif; font-weight:700; font-size:1.3rem; color:var(--text); margin-bottom:8px; }
+/* ---- MODAL EDITOR ---- */
+.moverlay{position:fixed;inset:0;background:rgba(21,23,31,.55);opacity:0;pointer-events:none;transition:.25s;z-index:60}
+.moverlay.on{opacity:1;pointer-events:auto}
+.editor{position:fixed;top:0;right:0;height:100vh;width:min(480px,100vw);background:#fff;box-shadow:-20px 0 60px rgba(0,0,0,.2);
+  transform:translateX(100%);transition:.3s cubic-bezier(.22,1,.36,1);z-index:61;overflow-y:auto}
+.editor.on{transform:translateX(0)}
+.ehead{position:sticky;top:0;background:#fff;padding:20px 24px;border-bottom:1px solid var(--LN);display:flex;align-items:center;gap:12px;z-index:2}
+.ehead h3{font-size:1.05rem;flex:1}
+.eclose{width:34px;height:34px;border-radius:50%;border:1px solid var(--LN);background:#fff}
+.ebody{padding:22px 24px 40px;display:flex;flex-direction:column;gap:16px}
+.field label{display:block;font-size:.78rem;font-weight:700;color:var(--G);margin-bottom:6px}
+.field input[type=text],.field input[type=number],.field input[type=url],.field select,.field textarea{
+  width:100%;padding:11px 13px;border:1px solid var(--LN);border-radius:9px;font-size:.9rem;background:#fff}
+.field textarea{resize:vertical;min-height:80px;font-family:inherit}
+.field .hint{font-size:.74rem;color:var(--M);margin-top:5px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.imgpreview{width:100%;height:150px;border-radius:10px;background-size:cover;background-position:center;background-color:var(--B);
+  border:1px solid var(--LN);display:flex;align-items:center;justify-content:center;color:var(--M);font-size:.8rem;margin-bottom:10px}
+.filebtn{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:8px;border:1px solid var(--LN);
+  background:#fff;font-size:.82rem;font-weight:700;cursor:pointer}
+.filebtn input{display:none}
+.ebtns{display:flex;gap:10px;margin-top:6px}
+.ebtns button{flex:1;padding:13px;border-radius:9px;border:0;font-weight:800;font-family:'Archivo';font-size:.86rem}
+.ebtns .save{background:var(--K);color:#fff}
+.ebtns .save:hover{background:var(--VD)}
+.ebtns .cancel{background:var(--B);color:var(--G);border:1px solid var(--LN)}
 
-.warn-config{ background:#FFF7E6; border:1px solid #F3D98A; color:#8A5A00; padding:14px 16px; border-radius:12px; font-size:14px; margin-bottom:20px; }
-
-/* ---------- Modal formulario ---------- */
-.overlay{ position:fixed; inset:0; z-index:50; background:rgba(11,15,23,.6); backdrop-filter:blur(4px); display:flex; align-items:flex-start; justify-content:center; padding:24px 16px; overflow-y:auto; }
-.overlay.hidden{ display:none; }
-.sheet{ background:var(--surface); border-radius:20px; width:100%; max-width:720px; box-shadow:0 30px 70px rgba(0,0,0,.35); }
-.sheet-head{ display:flex; align-items:center; justify-content:space-between; padding:20px 24px; border-bottom:1px solid var(--line); position:sticky; top:0; background:#fff; border-radius:20px 20px 0 0; z-index:2; }
-.sheet-head h3{ font-family:'Saira',sans-serif; font-weight:700; font-size:1.3rem; }
-.sheet-head .x{ width:38px; height:38px; display:grid; place-items:center; border-radius:50%; background:#f2f4f7; }
-.sheet-head .x:hover{ background:#e6e9ee; }
-.sheet-body{ padding:22px 24px; }
-.grid2{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-.grid3{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
-.fld{ margin-bottom:14px; }
-.fld label{ font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:6px; }
-.fld label .req{ color:var(--red); }
-.fld input, .fld select, .fld textarea{ background:#fafbfc; border:1px solid var(--line); border-radius:10px; padding:11px 12px; font-size:14.5px; }
-.fld textarea{ resize:vertical; min-height:80px; }
-.fld input:focus, .fld select:focus, .fld textarea:focus{ outline:none; border-color:var(--red); box-shadow:0 0 0 3px rgba(221,43,33,.13); }
-.fld .hint{ font-size:11.5px; color:var(--muted); margin-top:4px; }
-.check{ display:flex; align-items:center; gap:9px; padding:11px 0; }
-.check input{ width:18px; height:18px; accent-color:var(--red); }
-.check label{ font-size:14.5px; font-weight:600; text-transform:none; letter-spacing:0; color:var(--text); font-family:'Manrope'; margin:0; }
-
-/* Chips de características */
-.chips{ display:flex; flex-wrap:wrap; gap:7px; margin-top:8px; }
-.chip{ display:inline-flex; align-items:center; gap:6px; background:#eef1f4; border:1px solid var(--line); border-radius:8px; padding:5px 8px 5px 11px; font-size:13px; font-weight:600; }
-.chip button{ width:16px; height:16px; border-radius:50%; background:rgba(90,101,119,.18); display:grid; place-items:center; font-size:12px; line-height:1; }
-.chip button:hover{ background:rgba(180,54,46,.25); color:#B4362E; }
-
-/* Fotos */
-.fotos-grid{ display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
-.foto{ position:relative; width:104px; height:80px; border-radius:10px; overflow:hidden; border:1px solid var(--line); background:var(--ink-2); }
-.foto img{ width:100%; height:100%; object-fit:cover; }
-.foto .principal{ position:absolute; top:4px; left:4px; background:var(--red); color:#fff; font-size:8.5px; font-weight:700; font-family:'JetBrains Mono',monospace; padding:2px 5px; border-radius:5px; letter-spacing:.04em; }
-.foto .fx{ position:absolute; top:4px; right:4px; width:20px; height:20px; border-radius:50%; background:rgba(16,21,31,.72); color:#fff; display:grid; place-items:center; font-size:12px; }
-.foto .fx:hover{ background:#B4362E; }
-.foto .setp{ position:absolute; bottom:0; left:0; right:0; background:rgba(16,21,31,.72); color:#fff; font-size:10px; font-weight:600; padding:3px; opacity:0; transition:opacity .15s; }
-.foto:hover .setp{ opacity:1; }
-.foto-add{ width:104px; height:80px; border:2px dashed var(--line); border-radius:10px; display:grid; place-items:center; color:var(--muted); font-size:12px; text-align:center; gap:2px; cursor:pointer; }
-.foto-add:hover{ border-color:var(--red); color:var(--red-dp); background:var(--red-soft); }
-.foto-add svg{ width:20px; height:20px; margin-bottom:2px; }
-.uploading{ font-size:12.5px; color:var(--muted); margin-top:8px; display:flex; align-items:center; gap:8px; }
-.spinner{ width:15px; height:15px; border:2px solid var(--line); border-top-color:var(--red); border-radius:50%; animation:spin .7s linear infinite; }
-@keyframes spin{ to{ transform:rotate(360deg) } }
-
-.sheet-foot{ position:sticky; bottom:0; background:#fff; border-top:1px solid var(--line); padding:16px 24px; display:flex; gap:10px; justify-content:flex-end; border-radius:0 0 20px 20px; }
-.btn-ghost2{ border:1px solid var(--line); background:#fff; color:var(--text); font-weight:600; padding:12px 18px; border-radius:11px; }
-.btn-ghost2:hover{ background:#f2f4f7; }
-.form-err{ color:var(--red-dp); font-size:13.5px; font-weight:600; margin-right:auto; align-self:center; }
-
-/* Toast */
-.toast{ position:fixed; bottom:22px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--ink); color:#fff; padding:13px 20px; border-radius:12px; font-weight:600; font-size:14px; box-shadow:0 12px 30px rgba(0,0,0,.3); opacity:0; transition:opacity .2s, transform .2s; z-index:80; pointer-events:none; }
-.toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
-.toast.ok{ background:#12805A; } .toast.err{ background:#B4241B; }
-
-@media (max-width:640px){
-  .grid2,.grid3{ grid-template-columns:1fr; }
-  .toolbar .search input{ width:100%; }
-  .toolbar .search{ margin-left:0; width:100%; }
-  .row{ grid-template-columns:52px 1fr; }
-  .row .acts{ grid-column:1 / -1; }
-  .row .thumb{ width:52px; height:44px; }
-  .topbar .who{ display:none; }
-}
-@media (max-width:640px) and (orientation:portrait){
-  .topbar .tt{ display:none; }
-  .topbar .link-cat{ display:none; }
-}
-@media (prefers-reduced-motion:reduce){ *{ animation:none!important; transition:none!important; } }
+.helpbox{background:#fff;border:1px solid var(--LN);border-radius:var(--r);padding:20px 22px;margin-top:26px;font-size:.86rem;color:var(--G);line-height:1.6}
+.helpbox h3{font-size:.95rem;margin-bottom:8px}
+.helpbox code{background:var(--B);padding:2px 6px;border-radius:5px;font-size:.82em}
+.helpbox ol{margin:8px 0 0 18px}
 </style>
 </head>
 <body>
 
-<!-- ============ LOGIN ============ -->
-<div class="login-wrap" id="loginView">
-  <div class="login-card">
-    <img src="logo-autofirm-dark.png" alt="Autofirm" />
-    <h1>Panel de administración</h1>
-    <p class="sub">Ingresa para gestionar el inventario</p>
-    <div class="login-err hidden" id="loginErr"></div>
-    <div class="lg-field">
-      <label for="email">Correo</label>
-      <input type="email" id="email" autocomplete="username" placeholder="tucorreo@autofirm.co" />
+<!-- LOGIN GATE -->
+<div id="gate">
+  <div class="gatebox">
+    <h1>Panel de administrador</h1>
+    <p>Ingresa la contraseña para editar el catálogo de la tienda COLUNCER.</p>
+    <input type="password" id="pw" placeholder="Contraseña">
+    <button id="pwBtn">Entrar</button>
+    <div class="gateerr" id="gateErr">Contraseña incorrecta.</div>
+    <div class="gatenote">
+      ⚠️ Esta contraseña solo oculta el panel a simple vista: al ser un sitio sin servidor, cualquiera con
+      conocimientos técnicos podría verla en el código fuente. No la uses para proteger información sensible.
     </div>
-    <div class="lg-field">
-      <label for="password">Contraseña</label>
-      <input type="password" id="password" autocomplete="current-password" placeholder="••••••••" />
-    </div>
-    <button class="btn btn-red" id="loginBtn">Ingresar</button>
-    <p class="login-note">¿Olvidaste la contraseña? Contacta a tu administrador para restablecerla.</p>
   </div>
 </div>
 
-<!-- ============ APP ============ -->
-<div id="appView" class="hidden">
-  <div class="topbar">
-    <div class="topbar-in">
-      <img src="logo-autofirm.png" alt="Autofirm" />
-      <span class="tt">Administración</span>
-      <div class="right">
-        <a class="link-cat" href="index.html" target="_blank" rel="noopener">Ver catálogo ↗</a>
-        <span class="who" id="who"></span>
-        <button class="out" id="logoutBtn">Cerrar sesión</button>
-      </div>
+<!-- APP -->
+<div id="app">
+  <header>
+    <div class="htop">
+      <h1>COLUNCER <span>· Admin de productos</span></h1>
+      <a class="hbtn" href="index.html" target="_blank">Ver sitio ↗</a>
+      <a class="hbtn" href="store.html" target="_blank">Ver tienda ↗</a>
+      <button class="hbtn" id="logoutBtn">Salir</button>
     </div>
-  </div>
+  </header>
 
   <div class="wrap">
-    <div class="warn-config hidden" id="warnConfig">
-      ⚠️ Supabase aún no está configurado. Edita <b>config.js</b> con las llaves del proyecto para conectar la base de datos.
-    </div>
-
     <div class="toolbar">
-      <h2>Inventario</h2>
-      <span class="count" id="count">0 vehículos</span>
-      <div class="search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
-        <input type="text" id="adminSearch" placeholder="Buscar vehículo…" />
-      </div>
-      <button class="btn-add" id="addBtn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-        Agregar vehículo
-      </button>
+      <button class="hbtn" style="border-color:var(--LN);color:var(--K)" id="importBtn">Importar products.json</button>
+      <input type="file" id="importFile" accept="application/json" style="display:none">
+      <button class="hbtn primary" id="exportBtn">Descargar products.json</button>
+      <button class="hbtn" style="border-color:var(--LN);color:var(--K)" id="resetBtn">Restablecer catálogo</button>
+      <div class="spacer"></div>
+      <span class="status" id="statusMsg"></span>
     </div>
 
-    <div class="list" id="list"></div>
-    <div class="empty-admin hidden" id="emptyAdmin">
-      <h3>Aún no hay vehículos</h3>
-      <p>Agrega tu primer vehículo con el botón “Agregar vehículo”.</p>
-    </div>
-  </div>
-</div>
+    <div class="pgrid" id="pgrid"></div>
 
-<!-- ============ MODAL FORM ============ -->
-<div class="overlay hidden" id="formOverlay">
-  <div class="sheet">
-    <div class="sheet-head">
-      <h3 id="formTitle">Agregar vehículo</h3>
-      <button class="x" id="formClose" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    </div>
-    <div class="sheet-body">
-      <div class="grid2">
-        <div class="fld"><label>Marca <span class="req">*</span></label><input id="f_marca" placeholder="Ej: Mazda" /></div>
-        <div class="fld"><label>Modelo <span class="req">*</span></label><input id="f_modelo" placeholder="Ej: CX-30" /></div>
-      </div>
-      <div class="grid2">
-        <div class="fld"><label>Versión</label><input id="f_version" placeholder="Ej: Grand Touring" /></div>
-        <div class="fld"><label>Precio (COP) <span class="req">*</span></label><input id="f_precio" inputmode="numeric" placeholder="Ej: 92900000" /></div>
-      </div>
-      <div class="grid3">
-        <div class="fld"><label>Año</label><input id="f_anio" inputmode="numeric" placeholder="2022" /></div>
-        <div class="fld"><label>Kilometraje</label><input id="f_km" inputmode="numeric" placeholder="38000" /></div>
-        <div class="fld"><label>Cilindraje</label><input id="f_cilindraje" placeholder="2.0" /></div>
-      </div>
-      <div class="grid3">
-        <div class="fld"><label>Transmisión</label><select id="f_transmision"><option>Automática</option><option>Mecánica</option></select></div>
-        <div class="fld"><label>Combustible</label><select id="f_combustible"><option>Gasolina</option><option>Diésel</option><option>Híbrido</option><option>Eléctrico</option><option>Gas natural</option></select></div>
-        <div class="fld"><label>Categoría</label><select id="f_categoria"><option>SUV</option><option>Sedán</option><option>Hatchback</option><option>Pick-Up</option><option>Familiar</option><option>Coupé</option><option>Van</option></select></div>
-      </div>
-      <div class="grid3">
-        <div class="fld"><label>Color</label><input id="f_color" placeholder="Blanco Perla" /></div>
-        <div class="fld"><label>Puertas</label><input id="f_puertas" inputmode="numeric" placeholder="5" /></div>
-        <div class="fld"><label>Estado</label><select id="f_estado"><option>Disponible</option><option>Reservado</option><option>Vendido</option></select></div>
-      </div>
-      <div class="check"><input type="checkbox" id="f_destacado" /><label for="f_destacado">Marcar como destacado (se resalta en el catálogo)</label></div>
-
-      <div class="fld"><label>Descripción</label><textarea id="f_descripcion" placeholder="Estado general, mantenimientos, detalles a resaltar…"></textarea></div>
-
-      <div class="fld">
-        <label>Equipamiento</label>
-        <input id="f_caracInput" placeholder="Escribe y presiona Enter (ej: Cámara de reversa)" />
-        <div class="hint">Presiona Enter o coma para agregar cada característica.</div>
-        <div class="chips" id="f_chips"></div>
-      </div>
-
-      <div class="fld">
-        <label>Fotos</label>
-        <div class="hint">La primera foto es la <b>principal</b> (portada). Pasa el cursor sobre una foto para hacerla principal.</div>
-        <div class="fotos-grid" id="f_fotos"></div>
-        <input type="file" id="f_fileInput" accept="image/*" multiple class="hidden" />
-        <div class="uploading hidden" id="f_uploading"><span class="spinner"></span> Subiendo fotos…</div>
-      </div>
-    </div>
-    <div class="sheet-foot">
-      <span class="form-err hidden" id="formErr"></span>
-      <button class="btn-ghost2" id="formCancel">Cancelar</button>
-      <button class="btn btn-red" id="formSave" style="width:auto">Guardar vehículo</button>
+    <div class="helpbox">
+      <h3>Cómo publicar tus cambios en el sitio real</h3>
+      <p>Los cambios que haces aquí se guardan automáticamente en este navegador para que puedas previsualizarlos
+      en <b>Ver sitio</b> y <b>Ver tienda</b>. Para que <b>todos los visitantes</b> vean los cambios, sigue estos pasos:</p>
+      <ol>
+        <li>Haz clic en <b>Descargar products.json</b>.</li>
+        <li>Reemplaza el archivo <code>products.json</code> en tu repositorio de GitHub por el que acabas de descargar.</li>
+        <li>Haz commit y push — Render volverá a publicar el sitio automáticamente.</li>
+      </ol>
+      <p style="margin-top:8px">Si en otro momento quieres seguir editando desde cero, usa <b>Importar products.json</b>
+      para cargar el archivo publicado actual en este panel.</p>
     </div>
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<!-- EDITOR -->
+<div class="moverlay" id="moverlay"></div>
+<aside class="editor" id="editor">
+  <div class="ehead">
+    <h3 id="eTitle">Editar producto</h3>
+    <button class="eclose" id="eClose">✕</button>
+  </div>
+  <div class="ebody">
+    <div class="field">
+      <label>Foto del producto</label>
+      <div class="imgpreview" id="imgPreview">Sin imagen</div>
+      <label class="filebtn">📷 Subir foto
+        <input type="file" id="imgFile" accept="image/*">
+      </label>
+      <div class="hint">También puedes escribir una ruta o URL de imagen abajo.</div>
+    </div>
+    <div class="field">
+      <label>Ruta o URL de la imagen</label>
+      <input type="text" id="fImg" placeholder="images/tecnologia/producto.jpg">
+    </div>
+    <div class="field">
+      <label>Nombre del producto</label>
+      <input type="text" id="fName" placeholder="Ej: Altavoz Bluetooth AQUA AQ65W">
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label>Marca / vendedor</label>
+        <input type="text" id="fBy" placeholder="Coluncer Tech">
+      </div>
+      <div class="field">
+        <label>Categoría</label>
+        <input type="text" id="fCat" placeholder="Tecnología" list="catList">
+        <datalist id="catList"></datalist>
+      </div>
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label>Precio (COP)</label>
+        <input type="number" id="fPrice" placeholder="399000" min="0">
+      </div>
+      <div class="field">
+        <label>Descuento (%)</label>
+        <input type="number" id="fDiscount" placeholder="0" min="0" max="95">
+      </div>
+    </div>
+    <div class="field">
+      <label>Insignia (opcional)</label>
+      <input type="text" id="fBadge" placeholder="Nuevo, Más vendido...">
+    </div>
+    <div class="field">
+      <label>Descripción</label>
+      <textarea id="fDesc" placeholder="Descripción breve del producto..."></textarea>
+    </div>
+    <div class="field">
+      <label>Enlace a ficha original (opcional)</label>
+      <input type="url" id="fSrc" placeholder="https://...">
+    </div>
+    <div class="ebtns">
+      <button class="cancel" id="eCancel">Cancelar</button>
+      <button class="save" id="eSave">Guardar producto</button>
+    </div>
+  </div>
+</aside>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="config.js"></script>
+<script src="products.js"></script>
 <script>
-const $ = (s,c=document)=>c.querySelector(s);
-const $$ = (s,c=document)=>[...c.querySelectorAll(s)];
-const CONFIG = window.AUTOFIRM_CONFIG || {};
-const SB_OK = !!(CONFIG.SUPABASE_URL && !CONFIG.SUPABASE_URL.includes('TU-PROYECTO') && CONFIG.SUPABASE_ANON_KEY && !CONFIG.SUPABASE_ANON_KEY.includes('TU-LLAVE'));
-const sb = SB_OK ? window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY) : null;
-const BUCKET = 'vehiculos';
-const money = n => '$ ' + Number(n||0).toLocaleString('es-CO');
+const ADMIN_PASSWORD = "coluncer2026"; /* Cambia esta contraseña por una propia */
 
-let VEHICULOS = [];
-let editId = null;
-let caracForm = [];
-let fotosForm = [];
+let products = [];
+let editingId = null;
 
-/* ---------- Toast ---------- */
-let toastT;
-function toast(msg, kind=''){ const t=$('#toast'); t.textContent=msg; t.className='toast show '+kind; clearTimeout(toastT); toastT=setTimeout(()=>t.className='toast '+kind,2600); }
-
-/* ================= AUTENTICACIÓN ================= */
-async function initAuth(){
-  if(!sb){ // sin configurar: mostrar app con aviso para no bloquear
-    $('#loginView').classList.add('hidden'); $('#appView').classList.remove('hidden');
-    $('#warnConfig').classList.remove('hidden'); renderLista(); return;
-  }
-  const { data:{ session } } = await sb.auth.getSession();
-  updateAuthUI(session);
-  sb.auth.onAuthStateChange((_e, s)=> updateAuthUI(s));
-}
-function updateAuthUI(session){
-  if(session){
-    $('#loginView').classList.add('hidden'); $('#appView').classList.remove('hidden');
-    $('#who').textContent = session.user.email;
-    cargarVehiculos();
+/* ---- Login gate ---- */
+const SESSION_KEY = "coluncer_admin_session";
+function tryLogin(){
+  const val = document.getElementById("pw").value;
+  if(val === ADMIN_PASSWORD){
+    sessionStorage.setItem(SESSION_KEY, "1");
+    showApp();
   }else{
-    $('#appView').classList.add('hidden'); $('#loginView').classList.remove('hidden');
+    document.getElementById("gateErr").style.display = "block";
   }
 }
-async function login(){
-  const email=$('#email').value.trim(), password=$('#password').value;
-  const err=$('#loginErr'); err.classList.add('hidden');
-  if(!email||!password){ err.textContent='Escribe tu correo y contraseña.'; err.classList.remove('hidden'); return; }
-  const btn=$('#loginBtn'); btn.textContent='Ingresando…'; btn.disabled=true;
-  const { error } = await sb.auth.signInWithPassword({ email, password });
-  btn.textContent='Ingresar'; btn.disabled=false;
-  if(error){ err.textContent = error.message.includes('Invalid')?'Correo o contraseña incorrectos.':error.message; err.classList.remove('hidden'); }
-}
-$('#loginBtn').addEventListener('click', login);
-$('#password').addEventListener('keydown', e=>{ if(e.key==='Enter') login(); });
-$('#logoutBtn').addEventListener('click', async ()=>{ await sb.auth.signOut(); });
+document.getElementById("pwBtn").onclick = tryLogin;
+document.getElementById("pw").addEventListener("keydown", e => { if(e.key === "Enter") tryLogin(); });
+document.getElementById("logoutBtn").onclick = () => { sessionStorage.removeItem(SESSION_KEY); location.reload(); };
 
-/* ================= CARGA Y LISTA ================= */
-async function cargarVehiculos(){
-  if(!sb) return;
-  const { data, error } = await sb.from('vehiculos').select('*').order('created_at',{ascending:false});
-  if(error){ toast('Error al cargar: '+error.message,'err'); return; }
-  VEHICULOS = data||[];
-  renderLista();
+async function showApp(){
+  document.getElementById("gate").style.display = "none";
+  document.getElementById("app").style.display = "block";
+  products = await loadProducts();
+  renderGrid();
 }
-function renderLista(){
-  const q = $('#adminSearch').value.trim().toLowerCase();
-  const list = VEHICULOS.filter(v=>!q || `${v.marca} ${v.modelo} ${v.version||''}`.toLowerCase().includes(q));
-  $('#count').textContent = `${VEHICULOS.length} ${VEHICULOS.length===1?'vehículo':'vehículos'}`;
-  $('#emptyAdmin').classList.toggle('hidden', VEHICULOS.length!==0);
-  const cont = $('#list');
-  cont.innerHTML = list.map(v=>{
-    const foto = (v.fotos&&v.fotos.length)? `<img class="thumb" src="${v.fotos[0]}" alt="">` : `<div class="thumb none">Sin<br>foto</div>`;
-    const est = v.estado==='Reservado'?'res':v.estado==='Vendido'?'ven':'disp';
-    return `<div class="row">
-      ${foto}
-      <div class="info">
-        <h3>${v.marca} ${v.modelo}</h3>
-        <div class="meta">${v.version||''} ${v.anio?'· '+v.anio:''} ${v.km!=null?'· '+Number(v.km).toLocaleString('es-CO')+' km':''}</div>
-        <div class="price">${money(v.precio)}</div>
-        <div class="tags">
-          <span class="tag ${est}">${v.estado}</span>
-          ${v.destacado?'<span class="tag star">★ Destacado</span>':''}
+if(sessionStorage.getItem(SESSION_KEY) === "1") showApp();
+
+/* ---- Persistence ---- */
+function persist(){
+  localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(products));
+  const s = document.getElementById("statusMsg");
+  s.textContent = "Cambios guardados en este navegador ✓";
+  s.classList.add("saved");
+  setTimeout(() => { s.textContent = ""; s.classList.remove("saved"); }, 2500);
+}
+
+/* ---- Render product grid ---- */
+function renderGrid(){
+  const grid = document.getElementById("pgrid");
+  const cards = products.map(p => {
+    const dp = discPrice(p), hasDisc = dp < p.price;
+    return `
+    <article class="pcard">
+      <div class="thumb" style="${p.img?`background-image:url('${p.img}')`:""}">
+        ${p.img?"":`<span class="noimg">Sin foto</span>`}
+      </div>
+      <div class="pinfo">
+        <h4>${p.name}</h4>
+        <span class="meta">${p.by} · ${p.cat}</span>
+        <div class="pricerow">
+          <span class="price">${copFmt(dp)}</span>
+          ${hasDisc?`<span class="old">${copFmt(p.price)}</span>`:""}
+        </div>
+        <div class="actions">
+          <button class="edit" data-edit="${p.id}">Editar</button>
+          <button class="del" data-del="${p.id}">Eliminar</button>
         </div>
       </div>
-      <div class="acts">
-        <button class="edit" data-edit="${v.id}">Editar</button>
-        <button class="del" data-del="${v.id}">Eliminar</button>
-      </div>
-    </div>`;
-  }).join('');
+    </article>`;
+  }).join("");
+  grid.innerHTML = cards + `<button class="addcard" id="addBtn"><span class="plus">+</span>Agregar producto</button>`;
+
+  grid.querySelectorAll("[data-edit]").forEach(b => b.onclick = () => openEditor(+b.dataset.edit));
+  grid.querySelectorAll("[data-del]").forEach(b => b.onclick = () => deleteProduct(+b.dataset.del));
+  document.getElementById("addBtn").onclick = () => openEditor(null);
 }
-$('#adminSearch').addEventListener('input', renderLista);
 
-/* Delegación editar / eliminar */
-$('#list').addEventListener('click', e=>{
-  const ed=e.target.closest('[data-edit]'), de=e.target.closest('[data-del]');
-  if(ed) abrirForm(VEHICULOS.find(v=>v.id==ed.dataset.edit));
-  if(de) eliminar(VEHICULOS.find(v=>v.id==de.dataset.del));
-});
-
-/* ================= FORMULARIO ================= */
-function abrirForm(v=null){
-  editId = v? v.id : null;
-  $('#formTitle').textContent = v? 'Editar vehículo' : 'Agregar vehículo';
-  $('#formErr').classList.add('hidden');
-  const set=(id,val)=>{ $(id).value = val??''; };
-  set('#f_marca', v?.marca); set('#f_modelo', v?.modelo); set('#f_version', v?.version);
-  set('#f_precio', v?.precio); set('#f_anio', v?.anio); set('#f_km', v?.km);
-  set('#f_cilindraje', v?.cilindraje); set('#f_color', v?.color); set('#f_puertas', v?.puertas);
-  $('#f_transmision').value = v?.transmision || 'Automática';
-  $('#f_combustible').value = v?.combustible || 'Gasolina';
-  $('#f_categoria').value = v?.categoria || 'SUV';
-  $('#f_estado').value = v?.estado || 'Disponible';
-  $('#f_destacado').checked = !!v?.destacado;
-  set('#f_descripcion', v?.descripcion);
-  caracForm = Array.isArray(v?.caracteristicas)? [...v.caracteristicas] : [];
-  fotosForm = Array.isArray(v?.fotos)? [...v.fotos] : [];
-  renderChips(); renderFotos();
-  $('#formOverlay').classList.remove('hidden');
-  document.body.style.overflow='hidden';
+function deleteProduct(id){
+  const p = products.find(x => x.id === id);
+  if(!confirm(`¿Eliminar "${p.name}"? Esta acción no se puede deshacer.`)) return;
+  products = products.filter(x => x.id !== id);
+  persist();
+  renderGrid();
 }
-function cerrarForm(){ $('#formOverlay').classList.add('hidden'); document.body.style.overflow=''; }
-$('#addBtn').addEventListener('click', ()=>abrirForm());
-$('#formClose').addEventListener('click', cerrarForm);
-$('#formCancel').addEventListener('click', cerrarForm);
-$('#formOverlay').addEventListener('click', e=>{ if(e.target===$('#formOverlay')) cerrarForm(); });
 
-/* Chips de características */
-function renderChips(){
-  $('#f_chips').innerHTML = caracForm.map((c,i)=>`<span class="chip">${c}<button data-ci="${i}" aria-label="Quitar">✕</button></span>`).join('');
+/* ---- Editor drawer ---- */
+const moverlay = document.getElementById("moverlay"), editor = document.getElementById("editor");
+function openEditor(id){
+  editingId = id;
+  const p = id ? products.find(x => x.id === id) : {name:"",by:"",cat:"",price:0,discount:0,badge:"",desc:"",sourceUrl:"",img:""};
+  document.getElementById("eTitle").textContent = id ? "Editar producto" : "Nuevo producto";
+  document.getElementById("fImg").value = p.img || "";
+  document.getElementById("fName").value = p.name || "";
+  document.getElementById("fBy").value = p.by || "";
+  document.getElementById("fCat").value = p.cat || "";
+  document.getElementById("fPrice").value = p.price || 0;
+  document.getElementById("fDiscount").value = p.discount || 0;
+  document.getElementById("fBadge").value = p.badge || "";
+  document.getElementById("fDesc").value = p.desc || "";
+  document.getElementById("fSrc").value = p.sourceUrl || "";
+  updateImgPreview(p.img || "");
+
+  const cats = [...new Set(products.map(x => x.cat))];
+  document.getElementById("catList").innerHTML = cats.map(c => `<option value="${c}">`).join("");
+
+  moverlay.classList.add("on"); editor.classList.add("on");
 }
-$('#f_chips').addEventListener('click', e=>{ const b=e.target.closest('[data-ci]'); if(b){ caracForm.splice(+b.dataset.ci,1); renderChips(); } });
-$('#f_caracInput').addEventListener('keydown', e=>{
-  if(e.key==='Enter' || e.key===','){ e.preventDefault(); const val=e.target.value.trim().replace(/,$/,''); if(val){ caracForm.push(val); renderChips(); } e.target.value=''; }
-});
+function closeEditor(){ moverlay.classList.remove("on"); editor.classList.remove("on"); }
+document.getElementById("eClose").onclick = closeEditor;
+document.getElementById("eCancel").onclick = closeEditor;
+moverlay.addEventListener("click", closeEditor);
+document.addEventListener("keydown", e => { if(e.key === "Escape") closeEditor(); });
 
-/* Fotos */
-function renderFotos(){
-  const cont=$('#f_fotos');
-  cont.innerHTML = fotosForm.map((url,i)=>`
-    <div class="foto">
-      ${i===0?'<span class="principal">Principal</span>':''}
-      <img src="${url}" alt="">
-      <button class="fx" data-fx="${i}" aria-label="Quitar foto">✕</button>
-      ${i!==0?`<button class="setp" data-setp="${i}">Hacer principal</button>`:''}
-    </div>`).join('') +
-    `<div class="foto-add" id="fotoAdd">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-      Agregar fotos
-    </div>`;
-  $('#fotoAdd').addEventListener('click', ()=>$('#f_fileInput').click());
+function updateImgPreview(src){
+  const box = document.getElementById("imgPreview");
+  if(src){ box.style.backgroundImage = `url('${src}')`; box.textContent = ""; }
+  else{ box.style.backgroundImage = ""; box.textContent = "Sin imagen"; }
 }
-$('#f_fotos').addEventListener('click', e=>{
-  const fx=e.target.closest('[data-fx]'), sp=e.target.closest('[data-setp]');
-  if(fx){ const i=+fx.dataset.fx; const url=fotosForm[i]; fotosForm.splice(i,1); renderFotos(); borrarDeStorage(url); }
-  if(sp){ const i=+sp.dataset.setp; const [u]=fotosForm.splice(i,1); fotosForm.unshift(u); renderFotos(); }
-});
-$('#f_fileInput').addEventListener('change', async e=>{
-  const files=[...e.target.files]; e.target.value='';
-  if(!files.length) return;
-  if(!sb){ toast('Configura Supabase para subir fotos','err'); return; }
-  $('#f_uploading').classList.remove('hidden');
-  for(const file of files){
-    const ext=(file.name.split('.').pop()||'jpg').toLowerCase();
-    const path=`${Date.now()}_${Math.random().toString(36).slice(2,8)}.${ext}`;
-    const { error } = await sb.storage.from(BUCKET).upload(path, file, { cacheControl:'3600', upsert:false });
-    if(error){ toast('Error subiendo foto: '+error.message,'err'); continue; }
-    const { data } = sb.storage.from(BUCKET).getPublicUrl(path);
-    fotosForm.push(data.publicUrl); renderFotos();
-  }
-  $('#f_uploading').classList.add('hidden');
-});
-function pathDesdeUrl(url){ const m=url.split(`/${BUCKET}/`); return m.length>1? m[1] : null; }
-async function borrarDeStorage(url){ if(!sb) return; const p=pathDesdeUrl(url); if(p){ try{ await sb.storage.from(BUCKET).remove([p]); }catch(_){} } }
+document.getElementById("fImg").addEventListener("input", e => updateImgPreview(e.target.value));
 
-/* Guardar */
-$('#formSave').addEventListener('click', guardar);
-async function guardar(){
-  const err=$('#formErr'); err.classList.add('hidden');
-  const num = id => { const v=$(id).value.replace(/[^\d]/g,''); return v===''?null:parseInt(v,10); };
-  const obj = {
-    marca: $('#f_marca').value.trim(),
-    modelo: $('#f_modelo').value.trim(),
-    version: $('#f_version').value.trim(),
-    precio: num('#f_precio'),
-    anio: num('#f_anio'),
-    km: num('#f_km'),
-    cilindraje: $('#f_cilindraje').value.trim(),
-    color: $('#f_color').value.trim(),
-    puertas: num('#f_puertas'),
-    transmision: $('#f_transmision').value,
-    combustible: $('#f_combustible').value,
-    categoria: $('#f_categoria').value,
-    estado: $('#f_estado').value,
-    destacado: $('#f_destacado').checked,
-    descripcion: $('#f_descripcion').value.trim(),
-    caracteristicas: caracForm,
-    fotos: fotosForm,
+/* Subir foto: se convierte a imagen embebida (base64) para que funcione sin subir archivos al servidor */
+document.getElementById("imgFile").addEventListener("change", e => {
+  const file = e.target.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    document.getElementById("fImg").value = reader.result;
+    updateImgPreview(reader.result);
   };
-  if(!obj.marca || !obj.modelo || !obj.precio){
-    err.textContent='Marca, modelo y precio son obligatorios.'; err.classList.remove('hidden'); return;
+  reader.readAsDataURL(file);
+});
+
+document.getElementById("eSave").onclick = () => {
+  const name = document.getElementById("fName").value.trim();
+  if(!name){ alert("El producto necesita un nombre."); return; }
+  const data = {
+    name,
+    by: document.getElementById("fBy").value.trim(),
+    cat: document.getElementById("fCat").value.trim() || "General",
+    price: Math.max(0, +document.getElementById("fPrice").value || 0),
+    discount: Math.min(95, Math.max(0, +document.getElementById("fDiscount").value || 0)),
+    badge: document.getElementById("fBadge").value.trim() || null,
+    desc: document.getElementById("fDesc").value.trim(),
+    sourceUrl: document.getElementById("fSrc").value.trim(),
+    img: document.getElementById("fImg").value.trim(),
+    bg: "linear-gradient(135deg,#0a0a0a,#1c1c1c)"
+  };
+  if(editingId){
+    const idx = products.findIndex(x => x.id === editingId);
+    products[idx] = {...products[idx], ...data};
+  }else{
+    const newId = products.length ? Math.max(...products.map(x => x.id)) + 1 : 1;
+    products.push({id:newId, ...data});
   }
-  if(!sb){ toast('Configura Supabase para guardar','err'); return; }
-  const btn=$('#formSave'); btn.textContent='Guardando…'; btn.disabled=true;
-  let error;
-  if(editId){ ({ error } = await sb.from('vehiculos').update(obj).eq('id', editId)); }
-  else{ ({ error } = await sb.from('vehiculos').insert([obj])); }
-  btn.textContent='Guardar vehículo'; btn.disabled=false;
-  if(error){ err.textContent='No se pudo guardar: '+error.message; err.classList.remove('hidden'); return; }
-  cerrarForm(); toast(editId?'Vehículo actualizado':'Vehículo agregado','ok'); cargarVehiculos();
-}
+  persist();
+  renderGrid();
+  closeEditor();
+};
 
-/* Eliminar */
-async function eliminar(v){
-  if(!v) return;
-  if(!confirm(`¿Eliminar ${v.marca} ${v.modelo}? Esta acción no se puede deshacer.`)) return;
-  const { error } = await sb.from('vehiculos').delete().eq('id', v.id);
-  if(error){ toast('No se pudo eliminar: '+error.message,'err'); return; }
-  if(Array.isArray(v.fotos)) v.fotos.forEach(borrarDeStorage);
-  toast('Vehículo eliminado','ok'); cargarVehiculos();
-}
+/* ---- Export / import / reset ---- */
+document.getElementById("exportBtn").onclick = () => {
+  const blob = new Blob([JSON.stringify(products, null, 2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = "products.json";
+  a.click();
+  URL.revokeObjectURL(url);
+};
 
-document.addEventListener('keydown', e=>{ if(e.key==='Escape' && !$('#formOverlay').classList.contains('hidden')) cerrarForm(); });
+document.getElementById("importBtn").onclick = () => document.getElementById("importFile").click();
+document.getElementById("importFile").addEventListener("change", e => {
+  const file = e.target.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try{
+      const data = JSON.parse(reader.result);
+      if(!Array.isArray(data)) throw new Error("Formato inválido");
+      products = data;
+      persist();
+      renderGrid();
+      alert("Catálogo importado correctamente.");
+    }catch(err){
+      alert("No se pudo leer el archivo. Asegúrate de que sea un products.json válido.");
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = "";
+});
 
-/* Init */
-initAuth();
+document.getElementById("resetBtn").onclick = () => {
+  if(!confirm("Esto restablece el catálogo al contenido publicado actualmente (products.json) y descarta tus cambios sin publicar. ¿Continuar?")) return;
+  localStorage.removeItem(PRODUCTS_STORAGE_KEY);
+  location.reload();
+};
 </script>
 </body>
 </html>
